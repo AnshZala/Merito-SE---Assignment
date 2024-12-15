@@ -71,6 +71,29 @@ router.get('/violate', (req, res) => {
 });
 
 
+// Get all investments sorted by date (earliest date in calendar year)
+router.get('/date', (req, res) => {
+  const query = 'SELECT * FROM investments ORDER BY strftime("%Y-%m-%d", date) ASC';
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
+
+
+// Get all investments sorted by amount
+router.get('/amount', (req, res) => {
+  const query = 'SELECT * FROM investments ORDER BY amount';
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
+
 
 
 module.exports = router;

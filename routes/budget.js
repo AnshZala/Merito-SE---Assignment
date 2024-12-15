@@ -15,4 +15,17 @@ router.get('/', (req, res) => {
   });
 });
 
+
+// Get all budget_rules sorted by amount
+router.get('/amount', (req, res) => {
+  const query = 'SELECT * FROM budget_rules ORDER BY amount';
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
+
+
 module.exports = router;
